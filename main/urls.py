@@ -1,8 +1,11 @@
 from django.urls import  path
 
+from main.apps import MainConfig
 from main.views import index, contact
 
+app_name = MainConfig.name
+
 urlpatterns = [
-    path('', index),
-    path('contact/', contact)
+    path('', index, name='index'),
+    path('contact/', contact, name='contact')
 ]
