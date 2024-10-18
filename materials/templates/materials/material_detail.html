@@ -1,0 +1,38 @@
+{% extends 'main/base.html'%}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Материал "{{ object.title }}"({{ object.slug }})</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {{ object.body }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    Просмотры: {{ object.views_count }}
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Предметы студента</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        {% for subject in subjects %}
+                        <li>
+                            {{ subject }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

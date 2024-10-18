@@ -20,7 +20,11 @@ from django.urls import path, include
 
 from django.conf import settings
 
+from materials.models import Material
+from materials.views import MaterialCreateView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls', namespace='main'))
+    path('', include('main.urls', namespace='main')),
+    path('materials/', include('materials.urls', namespace='materials')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
