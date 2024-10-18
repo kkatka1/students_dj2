@@ -1,0 +1,35 @@
+{% extends 'main/base.html'%}
+{% block content %}
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Информация студента</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Имя:{{ object.first_name }}</p>
+                    <p class="card-text">Фамилия:{{ object.last_name }}</p>
+                    <img src="/media/{{object.avatar}}" style="object-fit: cover; width: 100%; height: 50%"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h5 class="card-title">Предметы студента</h5>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        {% for subject in subjects %}
+                        <li>
+                            {{ subject }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
