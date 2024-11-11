@@ -9,6 +9,8 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100, verbose_name='фамилия')
     avatar = models.ImageField(upload_to="students/", verbose_name='аватар', **NULLABLE)
 
+    email = models.CharField(max_length=150, verbose_name='email', unique=True, **NULLABLE)
+
     is_active = models.BooleanField(default=True, verbose_name='учится')
 
     def __str__(self):
