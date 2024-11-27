@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -36,7 +37,7 @@ class MaterialUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('materials:view', args=[self.kwargs.get('pk')])
 
-class MaterialListView(ListView):
+class MaterialListView(LoginRequiredMixin, ListView):
     model=Material
 
     def get_queryset(self, *args, **kwargs):

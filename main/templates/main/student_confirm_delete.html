@@ -6,12 +6,19 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            <p>Хотите удалить студента"{{ object.first_name }} {{ object.last_name }}"?</p>
-                            <button type="submit" class="btn btn-danger">Подтвердить</button>
-                            <a href="{% url 'materials:list' %}" class="btn btn-warning">Отмена</a>
-                        </form>
+                        <h3 class="card-title">
+                            Удаление студента
+                        </h3>
+                    </div>
+                    <div class="card-body">
+
+                        {% csrf_token %}
+                        <p>Хотите удалить студента {{ object.first_name }} {{ object.last_name }}?</p>
+                        <button type="submit" class="btn btn-danger">Подтвердить</button>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'main:index' %}" class="btn btn-warning">Отмена</a>
+                    </div>
                     </div>
                 </div>
             </div>
