@@ -4,6 +4,7 @@ from pyexpat.errors import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.core.cache import cache
+
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
@@ -13,6 +14,10 @@ from config import settings
 from main.forms import StudentForm, SubjectForm
 from main.models import Student, Subject
 from main.services import get_cached_subjects_for_student
+
+from main.forms import StudentForm, SubjectForm
+from main.models import Student, Subject
+
 
 
 class StudentListView(LoginRequiredMixin, ListView):
@@ -46,13 +51,13 @@ def contact(request):
 class StudentDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
     model = Student
     #template_name = 'main/student_detail.html'
+
     permission_required = 'main.view_student'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data['subjects'] = get_cached_subjects_for_student(self.object.pk)
         return context_data
-
 class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student
     form_class = StudentForm
@@ -77,6 +82,16 @@ class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
         return context_data
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        SubjectFormset = inlineformset_factory(Student, Subject, form=SubjectForm, extra=1)
+        if self.request.method == 'POST':
+            context_data ['formset'] = SubjectFormset(self.request.POST, instance=self.object)
+        else:
+            context_data ['formset'] = SubjectFormset(instance=self.object)
+
+        return context_data
+
     def form_valid(self, form):
         formset = self.get_context_data()['formset']
         self.object = form.save()
@@ -88,6 +103,7 @@ class StudentUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 
 class StudentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+
     model = Student
     success_url = reverse_lazy('main:index')
 

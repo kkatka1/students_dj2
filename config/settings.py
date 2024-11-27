@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'main',
     'materials',
     'users',
-
 ]
 
 MIDDLEWARE = [
@@ -159,5 +158,3 @@ CACHES = {
         "LOCATION": os.getenv('CACHE_LOCATION'),
     }
 }
-
-
