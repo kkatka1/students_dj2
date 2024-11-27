@@ -1,4 +1,4 @@
-from main.models import Student
+from main.models import Student, Subject
 from django.contrib import admin
 
 #admin.site.register(Student)
@@ -9,3 +9,9 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'is_active')
     list_filter = ('is_active',)
     search_fields = ('first_name', 'last_name',)
+
+
+@admin.register(Subject)
+class SubjectAdmin(admin.ModelAdmin):
+    list_display = ('title', 'student')
+    list_filter = ('student',)
